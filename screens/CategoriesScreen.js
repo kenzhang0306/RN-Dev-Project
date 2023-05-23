@@ -9,7 +9,8 @@ export default function CategoriesScreen(props) {
         title="Go to Meals!"
         onPress={() => {
           props.navigation.navigate("CategoryMeals");
-          //props.navigation.replace("CategoryMeals"); //replce can use in login as we dont wanna user go back to login screen
+          //replce can use in login as we dont wanna user go back to login screen
+          //props.navigation.replace("CategoryMeals");
         }}
       />
     </View>
