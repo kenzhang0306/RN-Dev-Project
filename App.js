@@ -58,6 +58,11 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      <StatusBar
+        animated={true}
+        backgroundColor="#5b18ad"
+        barStyle="dark-content"
+      />
       <Stack.Navigator screenOptions={screenOptions}>
         <Stack.Screen name="Categories" component={CategoriesScreen} />
         <Stack.Screen name="CategoryMeals" component={CategoryMealsScreen} />
