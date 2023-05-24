@@ -8,7 +8,7 @@ export default function CategoryMealsScreen(props) {
   const route = useRoute();
   const navigation = useNavigation();
   //Since the route parameters may not always be available, we use the optional chaining operator (?.) to avoid potential errors if the parameters are undefined.
-  const itemId = route.params?.categoryId;
+  const itemId = route.params?.categoryId; //得到頁面導航的跳轉參數
   const selectedCategory = CATEGORIES.find(
     (category) => category.id === itemId
   );
@@ -35,7 +35,9 @@ export default function CategoryMealsScreen(props) {
         }}
       />
       <Text>
-        Item ID: {itemId}, Category Title: {selectedCategory.title}
+        Item ID: {itemId}, Category Title: {selectedCategory.title}, Router
+        Params:
+        {route.params?.categoryTitle}
       </Text>
     </View>
   );

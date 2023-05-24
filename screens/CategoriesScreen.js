@@ -26,6 +26,7 @@ export default function CategoriesScreen(props) {
         onPress={() => {
           props.navigation.navigate("CategoryMeals", {
             categoryId: itemData.item.id,
+            categoryTitle: itemData.item.title,
           });
         }}
       >
