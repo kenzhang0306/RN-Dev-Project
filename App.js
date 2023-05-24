@@ -5,6 +5,7 @@ import * as SplashScreen from "expo-splash-screen";
 import React, { useState, useEffect, useCallback } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
+import Colors from "./constants/Colors";
 
 import CategoriesScreen from "./screens/CategoriesScreen";
 import CategoryMealsScreen from "./screens/CategoryMealsScreen";
@@ -54,6 +55,10 @@ export default function App() {
   const screenOptions = {
     //headerShown: false,
     animation: "slide_from_right", // Change the animation type according to your preference
+    headerStyle: {
+      backgroundColor: Colors.primaryColor,
+    },
+    headerTintColor: "white",
   };
 
   return (

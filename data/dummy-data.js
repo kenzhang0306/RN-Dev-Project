@@ -8,7 +8,7 @@ export const CATEGORIES = [
   new Category("c5", "Light & Lovely", "#368dff"),
   new Category("c6", "Exotic", "#41d95d"),
   new Category("c7", "Breakfast", "#9eecff"),
-  new Category("c8", "asian", "#b9ffb0"),
+  new Category("c8", "Asian", "#b9ffb0"),
   new Category("c9", "French", "#ffc7ff"),
   new Category("c10", "Summer", "#47fced"),
 ];

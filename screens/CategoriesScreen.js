@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { CATEGORIES } from "../data/dummy-data";
-import Colors from "../constants/Colors";
 import { useNavigation } from "@react-navigation/native";
 
 export default function CategoriesScreen(props) {
@@ -17,10 +16,6 @@ export default function CategoriesScreen(props) {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: "Meal Categories",
-      headerStyle: {
-        backgroundColor: Colors.primaryColor,
-      },
-      headerTintColor: "white",
     });
   }, [navigation]);
 
