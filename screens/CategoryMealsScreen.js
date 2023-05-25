@@ -4,6 +4,7 @@ import { useRoute } from "@react-navigation/native";
 import { CATEGORIES, MEALS } from "../data/dummy-data";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
+import MealItem from "../components/MealItem";
 
 export default function CategoryMealsScreen(props) {
   const route = useRoute();
@@ -27,9 +28,14 @@ export default function CategoryMealsScreen(props) {
 
   const renderMealItem = ({ item }) => {
     return (
-      <View>
-        <Text>{item.title}</Text>
-      </View>
+      <MealItem
+        data={item}
+        onSelectCallback={(itemData) => {
+          props.navigation.navigate("MealDetail", {
+            ItemDetails: itemData,
+          });
+        }}
+      />
     );
   };
 
@@ -39,6 +45,7 @@ export default function CategoryMealsScreen(props) {
         data={displayedMeals}
         renderItem={renderMealItem}
         keyExtractor={(item) => item.id}
+        style={{ width: "100%" }}
       />
     </View>
   );
@@ -49,5 +56,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    padding: 10,
   },
 });
