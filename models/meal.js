@@ -18,7 +18,6 @@ export default class Meal {
       (this.categoryIds = categoryIds),
       (this.title = title),
       (this.affordbaility = affordbaility),
-      (this.complexity = affordbaility),
       (this.complexity = complexity),
       (this.imageUrl = imageUrl),
       (this.duration = duration),
