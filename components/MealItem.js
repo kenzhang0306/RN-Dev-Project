@@ -40,11 +40,12 @@ export default function MealItem(props) {
 
 const styles = StyleSheet.create({
   mealItem: {
-    height: 322,
+    height: 318,
     width: "100%",
     backgroundColor: "#c8cfca",
     borderRadius: 10,
     overflow: "hidden",
+    marginBottom: 5,
   },
   mealRow: {
     flexDirection: "row",
