@@ -1,9 +1,18 @@
 import { View, Text, Button, StyleSheet } from "react-native";
-import React from "react";
-import { useRoute } from "@react-navigation/native";
+import React, { useLayoutEffect } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 export default function MealDetailScreen(props) {
   const route = useRoute();
+  const title = route.params?.ItemDetails.title;
+  const ingredients = route.params?.ItemDetails.ingredients;
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: title,
+    });
+  }, [navigation]);
 
   return (
     <View style={styles.screen}>
@@ -14,8 +23,8 @@ export default function MealDetailScreen(props) {
           props.navigation.popToTop();
         }}
       />
-      <Text>{route.params?.ItemDetails.title}</Text>
-      {route.params?.ItemDetails.ingredients.map((item, index) => {
+      <Text>{title}</Text>
+      {ingredients.map((item, index) => {
         return <Text key={index}>{item}</Text>;
       })}
     </View>
