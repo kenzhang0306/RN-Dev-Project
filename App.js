@@ -1,17 +1,35 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, AppearanceProvider } from "react-native";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import Colors from "./constants/Colors";
 
 import CategoriesScreen from "./screens/CategoriesScreen";
 import CategoryMealsScreen from "./screens/CategoryMealsScreen";
 import MealDetailScreen from "./screens/MealDetailScreen";
+import FavoritesScreen from "./screens/FavoritesScreen";
+import { NativeWindStyleSheet } from "nativewind";
+import { MaterialIcons } from "@expo/vector-icons";
+import BottomTabNavigation from "./components/BottomTabNavigation";
+import CustomHeaderButton from "./components/HeaderButton";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { ThemeProvider } from "./ThemeMode/ThemeProvider";
+import SettingsScreen from "./screens/SettingsScreen";
+import { Provider, useSelector } from "react-redux";
+import store from "./store/store";
+import DarkModeSwitch from "./components/DarkModeSwitch";
+import { getHeaderTitle } from "./store/slices/HeaderTitleSlice";
 
 const Stack = createNativeStackNavigator();
+//const Tab = createBottomTabNavigator();
+
+NativeWindStyleSheet.setOutput({
+  default: "native",
+});
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -61,19 +79,90 @@ export default function App() {
     headerTintColor: "white",
   };
 
+  // const screenOptionsTab = ({ route }) => ({
+  //   tabBarIcon: ({ color, size }) => {
+  //     let iconName;
+
+  //     if (route.name === "CategoriesTab") {
+  //       iconName = "category";
+  //     } else if (route.name === "FavoritesTab") {
+  //       iconName = "favorite";
+  //     }
+
+  //     return <MaterialIcons name={iconName} size={size} color={color} />;
+  //   },
+  //   tabBarStyle: {
+  //     height: 80, // Set the height of the tab bar
+  //     backgroundColor: Colors.primaryColor,
+  //   },
+  //   tabBarLabelStyle: {
+  //     //color: "red", // Set the color of the label text
+  //     fontSize: 14,
+  //   },
+  //   tabBarActiveTintColor: "orange", // Set the color of active tabs
+  //   tabBarInactiveTintColor: "gray", // Set the color of inactive tabs
+  //   headerShown: false, // Remove the header for all screens
+  // });
+
+  // const CategoriesScreenTab = () => {
+  //   return (
+  //     <Tab.Navigator screenOptions={screenOptionsTab}>
+  //       <Tab.Screen
+  //         name="CategoriesTab"
+  //         component={CategoriesScreen}
+  //         options={{ tabBarLabel: "Categories" }}
+  //       />
+  //       <Tab.Screen
+  //         name="FavoritesTab"
+  //         component={FavoritesScreen}
+  //         options={{ tabBarLabel: "Favorites" }}
+  //       />
+  //     </Tab.Navigator>
+  //   );
+  // };
+
+  const renderHeaderRight = () => {
+    return (
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+        <Item
+          title="favorite"
+          iconName="ios-star"
+          onPress={() => {
+            // Handle button press here
+          }}
+        />
+      </HeaderButtons>
+    );
+  };
+
+  const CategoriesScreenTab = () => {
+    return <BottomTabNavigation />;
+  };
+
   return (
-    <NavigationContainer>
-      <StatusBar
-        animated={true}
-        backgroundColor="#5b18ad"
-        barStyle="dark-content"
-      />
-      <Stack.Navigator screenOptions={screenOptions}>
-        <Stack.Screen name="Categories" component={CategoriesScreen} />
-        <Stack.Screen name="CategoryMeals" component={CategoryMealsScreen} />
-        <Stack.Screen name="MealDetail" component={MealDetailScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <StatusBar
+          animated={true}
+          backgroundColor="#5b18ad"
+          barStyle="dark-content"
+        />
+
+        <Stack.Navigator screenOptions={screenOptions}>
+          <Stack.Screen
+            name="Categories"
+            component={CategoriesScreenTab}
+            options={{
+              headerRight: () => <DarkModeSwitch />,
+            }}
+          />
+          <Stack.Screen name="CategoryMeals" component={CategoryMealsScreen} />
+          <Stack.Screen name="MealDetail" component={MealDetailScreen} />
+          <Stack.Screen name="Favorites" component={FavoritesScreen} />
+          <Stack.Screen name="Settings" component={SettingsScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

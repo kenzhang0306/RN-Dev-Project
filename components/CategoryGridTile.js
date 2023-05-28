@@ -7,9 +7,12 @@ import {
   TouchableNativeFeedback,
 } from "react-native";
 import React from "react";
+import { useSelector } from "react-redux";
+import { getMode } from "../store/slices/ThemeSlice";
 
 export default function CategoryGridTile(props) {
   const { item } = props.data;
+  const theme = useSelector(getMode);
 
   let TouchableCmp = TouchableOpacity;
   if (Platform.OS === "android" && Platform.Version >= 21) {
@@ -22,7 +25,13 @@ export default function CategoryGridTile(props) {
         <View
           style={{ ...styles.container, ...{ backgroundColor: item.color } }}
         >
-          <Text style={styles.title} numberOfLines={2}>
+          <Text
+            style={{
+              ...styles.title,
+              ...{ color: theme === "light" ? "black" : "white" },
+            }}
+            numberOfLines={2}
+          >
             {item.title}
           </Text>
         </View>

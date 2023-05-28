@@ -1,18 +1,14 @@
-import {
-  View,
-  Text,
-  FlatList,
-  Button,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, FlatList, Button, TouchableOpacity } from "react-native";
 import React, { useLayoutEffect } from "react";
 import { CATEGORIES } from "../data/dummy-data";
 import { useNavigation } from "@react-navigation/native";
 import CategoryGridTile from "../components/CategoryGridTile";
+import { useSelector } from "react-redux";
+import { getMode } from "../store/slices/ThemeSlice";
 
 export default function CategoriesScreen(props) {
   const navigation = useNavigation();
+  const theme = useSelector(getMode);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -36,6 +32,7 @@ export default function CategoriesScreen(props) {
 
   return (
     <FlatList
+      style={{ backgroundColor: theme === "light" ? "white" : "black" }}
       data={CATEGORIES}
       renderItem={renderGridItem}
       numColumns={2}
@@ -46,10 +43,10 @@ export default function CategoriesScreen(props) {
   );
 }
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+// const styles = StyleSheet.create({
+//   screen: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+// });
