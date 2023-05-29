@@ -5,19 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMode } from "../store/slices/ThemeSlice";
 import { setHeaderTitle } from "../store/slices/HeaderTitleSlice";
 
-export default function FavoritesScreen() {
-  const navigation = useNavigation();
+export default function FavoritesScreen({ navigation }) {
+  //const navigation = useNavigation();
   const theme = useSelector(getMode);
   const route = useRoute();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    navigation.setOptions({
-      headerTitle: () => {
-        return "Favorites";
-      },
-    });
-  }, [navigation]);
+    dispatch(setHeaderTitle("Favorites"));
+  }, []);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("tabPress", (e) => {
@@ -45,12 +41,12 @@ export default function FavoritesScreen() {
     },
   });
 
-  useLayoutEffect(() => {
-    dispatch(setHeaderTitle("Favorites"));
-    navigation.setOptions({
-      headerTitle: "Favorites",
-    });
-  }, [navigation]);
+  // useLayoutEffect(() => {
+  //   dispatch(setHeaderTitle("Favorites"));
+  //   navigation.setOptions({
+  //     title: "Favorites",
+  //   });
+  // }, [navigation]);
   return (
     <View style={styles.screen}>
       <Text style={styles.text}>Favorites Screen</Text>

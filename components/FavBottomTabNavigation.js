@@ -1,4 +1,3 @@
-import { View, Text } from "react-native";
 import React, { useEffect, useLayoutEffect } from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -12,7 +11,7 @@ export default function BottomTabNavigation() {
 
   return (
     <Tab.Navigator
-      initialRouteName="CategoriesTab"
+      initialRouteName="FavoritesTab"
       activeColor="orange"
       inactiveColor="grey"
       labelStyle={{ fontSize: 12 }}

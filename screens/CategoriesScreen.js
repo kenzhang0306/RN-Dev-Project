@@ -1,19 +1,31 @@
 import { View, Text, FlatList, Button, TouchableOpacity } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useEffect } from "react";
 import { CATEGORIES } from "../data/dummy-data";
 import { useNavigation } from "@react-navigation/native";
 import CategoryGridTile from "../components/CategoryGridTile";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getMode } from "../store/slices/ThemeSlice";
+import { setHeaderTitle } from "../store/slices/HeaderTitleSlice";
 
 export default function CategoriesScreen(props) {
   const navigation = useNavigation();
   const theme = useSelector(getMode);
+  const dispatch = useDispatch();
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitle: "Meal Categories",
+  // useLayoutEffect(() => {
+  //   navigation.setOptions({
+  //     headerTitle: "Meal Categories",
+  //   });
+  // }, [navigation]);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("tabPress", (e) => {
+      //e.preventDefault();
+      // Do something manually
+      dispatch(setHeaderTitle("Meal Categories"));
     });
+
+    return unsubscribe;
   }, [navigation]);
 
   const renderGridItem = (itemData) => {

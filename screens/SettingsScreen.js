@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Switch } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { getMode, toggleTheme } from "../store/slices/ThemeSlice";
+import { setHeaderTitle } from "../store/slices/HeaderTitleSlice";
 
-const SettingsScreen = () => {
+const SettingsScreen = ({ navigation }) => {
   const theme = useSelector(getMode);
   const dispatch = useDispatch();
 
   const handleToggleTheme = () => {
     dispatch(toggleTheme());
   };
+
+  useEffect(() => {
+    dispatch(setHeaderTitle("Settings"));
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("tabPress", (e) => {
+      //e.preventDefault();
+      // Do something manually
+      dispatch(setHeaderTitle("Settings"));
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <View

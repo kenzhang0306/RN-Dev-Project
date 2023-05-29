@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  title: "Categories",
+  title: "Meal Categories",
 };
 
 const headerTitleSlice = createSlice({
