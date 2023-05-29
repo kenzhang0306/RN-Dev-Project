@@ -1,10 +1,11 @@
 import { View, Text, Button, StyleSheet } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { CATEGORIES, MEALS } from "../data/dummy-data";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
 import MealItem from "../components/MealItem";
+import BottomTabNavigation from "../components/BottomTabNavigation";
 
 export default function CategoryMealsScreen(props) {
   const route = useRoute();

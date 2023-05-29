@@ -19,7 +19,6 @@ import FavoritesScreen from "./screens/FavoritesScreen";
 import { NativeWindStyleSheet } from "nativewind";
 import { MaterialIcons } from "@expo/vector-icons";
 import BottomTabNavigation from "./components/BottomTabNavigation";
-import FavBottomTabNavigation from "./components/FavBottomTabNavigation";
 import CustomHeaderButton from "./components/HeaderButton";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { ThemeProvider } from "./ThemeMode/ThemeProvider";
@@ -29,6 +28,7 @@ import store from "./store/store";
 import DarkModeSwitch from "./components/DarkModeSwitch";
 import { getHeaderTitle } from "./store/slices/HeaderTitleSlice";
 import HeaderTitle from "./components/HeaderTitle";
+import CategoryMealsBottomTabNavigation from "./components/CategoryMealsBottomTabNavigation";
 
 const Stack = createNativeStackNavigator();
 //const Tab = createBottomTabNavigator();
@@ -168,7 +168,16 @@ export default function App() {
         />
 
         <Stack.Navigator screenOptions={screenOptions}>
-          {/* <Stack.Screen name="BottomTabNav" component={BottomTabNavigation} /> */}
+          {/* <Stack.Screen
+            name="BottomTabNav"
+            component={BottomTabNavigation}
+            options={{
+              headerRight: () => <DarkModeSwitch />,
+              headerTitle: () => {
+                return <HeaderTitle />;
+              },
+            }}
+          /> */}
           <Stack.Screen
             name="Categories"
             component={CategoriesScreenTab}

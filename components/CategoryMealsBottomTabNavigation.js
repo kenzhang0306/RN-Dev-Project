@@ -5,13 +5,14 @@ import CategoriesScreen from "../screens/CategoriesScreen";
 import FavoritesScreen from "../screens/FavoritesScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import Colors from "../constants/Colors";
+import CategoryMealsScreen from "../screens/CategoryMealsScreen";
 
-export default function BottomTabNavigation() {
+export default function CategoryMealsBottomTabNavigation() {
   const Tab = createMaterialBottomTabNavigator();
 
   return (
     <Tab.Navigator
-      initialRouteName="FavoritesTab"
+      initialRouteName=""
       activeColor="orange"
       inactiveColor="grey"
       labelStyle={{ fontSize: 12 }}
