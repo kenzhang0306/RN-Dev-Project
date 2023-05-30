@@ -1,37 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, AppearanceProvider } from "react-native";
+import { StyleSheet } from "react-native";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import React, { useState, useEffect, useLayoutEffect } from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {
-  NavigationContainer,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/native";
-import Colors from "./constants/Colors";
-
-import CategoriesScreen from "./screens/CategoriesScreen";
-import CategoryMealsScreen from "./screens/CategoryMealsScreen";
-import MealDetailScreen from "./screens/MealDetailScreen";
-import FavoritesScreen from "./screens/FavoritesScreen";
+import React, { useState, useEffect } from "react";
+import { NavigationContainer } from "@react-navigation/native";
 import { NativeWindStyleSheet } from "nativewind";
-import { MaterialIcons } from "@expo/vector-icons";
-import BottomTabNavigation from "./components/BottomTabNavigation";
-import CustomHeaderButton from "./components/HeaderButton";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { ThemeProvider } from "./ThemeMode/ThemeProvider";
-import SettingsScreen from "./screens/SettingsScreen";
-import { Provider, useSelector } from "react-redux";
+import DrawerNavigation from "./components/DrawerNavigation";
+import { Provider } from "react-redux";
 import store from "./store/store";
-import DarkModeSwitch from "./components/DarkModeSwitch";
-import { getHeaderTitle } from "./store/slices/HeaderTitleSlice";
-import HeaderTitle from "./components/HeaderTitle";
-import CategoryMealsBottomTabNavigation from "./components/CategoryMealsBottomTabNavigation";
-
-const Stack = createNativeStackNavigator();
-//const Tab = createBottomTabNavigator();
 
 NativeWindStyleSheet.setOutput({
   default: "native",
@@ -76,14 +52,14 @@ export default function App() {
     return null;
   }
 
-  const screenOptions = {
-    // headerShown: false,
-    animation: "slide_from_right", // Change the animation type according to your preference
-    headerStyle: {
-      backgroundColor: Colors.primaryColor,
-    },
-    headerTintColor: "white",
-  };
+  // const screenOptions = {
+  //   // headerShown: false,
+  //   animation: "slide_from_right", // Change the animation type according to your preference
+  //   headerStyle: {
+  //     backgroundColor: Colors.primaryColor,
+  //   },
+  //   headerTintColor: "white",
+  // };
 
   // const screenOptionsTab = ({ route }) => ({
   //   tabBarIcon: ({ color, size }) => {
@@ -127,37 +103,6 @@ export default function App() {
   //   );
   // };
 
-  const renderHeaderRight = () => {
-    return (
-      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-        <Item
-          title="favorite"
-          iconName="ios-star"
-          onPress={() => {
-            // Handle button press here
-          }}
-        />
-      </HeaderButtons>
-    );
-  };
-
-  const CategoriesScreenTab = () => {
-    return <BottomTabNavigation />;
-  };
-
-  const getHeaderTitle = () => {
-    const routeName = route.state?.routeNames[route.state.index];
-    console.log(routeName);
-    // switch (routeName) {
-    //   case 'TabScreen1':
-    //     return 'Tab 1 Title';
-    //   case 'TabScreen2':
-    //     return 'Tab 2 Title';
-    //   default:
-    //     return 'Generic Title';
-    // }
-  };
-
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -166,33 +111,7 @@ export default function App() {
           backgroundColor="#5b18ad"
           barStyle="dark-content"
         />
-
-        <Stack.Navigator screenOptions={screenOptions}>
-          {/* <Stack.Screen
-            name="BottomTabNav"
-            component={BottomTabNavigation}
-            options={{
-              headerRight: () => <DarkModeSwitch />,
-              headerTitle: () => {
-                return <HeaderTitle />;
-              },
-            }}
-          /> */}
-          <Stack.Screen
-            name="Categories"
-            component={CategoriesScreenTab}
-            options={{
-              headerRight: () => <DarkModeSwitch />,
-              headerTitle: () => {
-                return <HeaderTitle />;
-              },
-            }}
-          />
-          <Stack.Screen name="CategoryMeals" component={CategoryMealsScreen} />
-          <Stack.Screen name="MealDetail" component={MealDetailScreen} />
-          <Stack.Screen name="Favorites" component={FavoritesScreen} />
-          <Stack.Screen name="Settings" component={SettingsScreen} />
-        </Stack.Navigator>
+        <DrawerNavigation />
       </NavigationContainer>
     </Provider>
   );

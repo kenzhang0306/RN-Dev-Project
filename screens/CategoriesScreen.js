@@ -12,21 +12,34 @@ export default function CategoriesScreen(props) {
   const theme = useSelector(getMode);
   const dispatch = useDispatch();
 
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("drawerItemPress", (e) => {
+      // Prevent default behavior
+      //e.preventDefault();
+      console.log("pressed");
+
+      // Do something manually
+      // ...
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
   // useLayoutEffect(() => {
   //   navigation.setOptions({
   //     headerTitle: "Meal Categories",
   //   });
   // }, [navigation]);
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("tabPress", (e) => {
-      //e.preventDefault();
-      // Do something manually
-      dispatch(setHeaderTitle("Meal Categories"));
-    });
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener("tabPress", (e) => {
+  //     //e.preventDefault();
+  //     // Do something manually
+  //     dispatch(setHeaderTitle("Meal Categories"));
+  //   });
 
-    return unsubscribe;
-  }, [navigation]);
+  //   return unsubscribe;
+  // }, [navigation]);
 
   const renderGridItem = (itemData) => {
     return (

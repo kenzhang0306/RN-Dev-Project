@@ -12,19 +12,19 @@ const SettingsScreen = ({ navigation }) => {
     dispatch(toggleTheme());
   };
 
-  useEffect(() => {
-    dispatch(setHeaderTitle("Settings"));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(setHeaderTitle("Settings"));
+  // }, []);
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("tabPress", (e) => {
-      //e.preventDefault();
-      // Do something manually
-      dispatch(setHeaderTitle("Settings"));
-    });
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener("tabPress", (e) => {
+  //     //e.preventDefault();
+  //     // Do something manually
+  //     dispatch(setHeaderTitle("Settings"));
+  //   });
 
-    return unsubscribe;
-  }, [navigation]);
+  //   return unsubscribe;
+  // }, [navigation]);
 
   return (
     <View

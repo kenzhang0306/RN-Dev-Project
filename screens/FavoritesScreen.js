@@ -11,22 +11,22 @@ export default function FavoritesScreen({ navigation }) {
   const route = useRoute();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(setHeaderTitle("Favorites"));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(setHeaderTitle("Favorites"));
+  // }, []);
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("tabPress", (e) => {
-      // Prevent default behavior
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener("tabPress", (e) => {
+  //     // Prevent default behavior
 
-      //e.preventDefault();
-      // Do something manually
-      console.log(route.name);
-      dispatch(setHeaderTitle("Favorites"));
-    });
+  //     //e.preventDefault();
+  //     // Do something manually
+  //     console.log(route.name);
+  //     dispatch(setHeaderTitle("Favorites"));
+  //   });
 
-    return unsubscribe;
-  }, [navigation]);
+  //   return unsubscribe;
+  // }, [navigation]);
 
   const styles = StyleSheet.create({
     screen: {

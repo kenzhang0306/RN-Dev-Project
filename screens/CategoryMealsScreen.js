@@ -5,7 +5,6 @@ import { CATEGORIES, MEALS } from "../data/dummy-data";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
 import MealItem from "../components/MealItem";
-import BottomTabNavigation from "../components/BottomTabNavigation";
 
 export default function CategoryMealsScreen(props) {
   const route = useRoute();
