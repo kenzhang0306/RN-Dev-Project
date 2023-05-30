@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { View } from "react-native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { MaterialIcons } from "@expo/vector-icons";
 import CategoriesScreen from "../screens/CategoriesScreen";
@@ -9,7 +10,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CategoryMealsScreen from "../screens/CategoryMealsScreen";
 import MealDetailScreen from "../screens/MealDetailScreen";
 import DarkModeSwitch from "./DarkModeSwitch";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import {
+  createDrawerNavigator,
+  DrawerItem,
+  DrawerContentScrollView,
+  DrawerItemList,
+} from "@react-navigation/drawer";
 import FiltersScreen from "../screens/FiltersScreen";
 import CustomHeaderButton from "./HeaderButton";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -173,10 +179,58 @@ export default function DrawerNavigation() {
     },
   };
 
+  const CustomDrawerContent = (props) => {
+    const handleDrawerItemPress = (screenName) => {
+      props.navigation.navigate(screenName);
+    };
+
+    return (
+      <DrawerContentScrollView>
+        {/* <DrawerItemList {...props} screenOptions={drawerScreenOptions} /> */}
+        <DrawerItem
+          label="Meal Categories"
+          labelStyle={{
+            fontFamily: "open-sans-bold",
+            color: Colors.accentColor,
+            fontSize: 16,
+          }}
+          icon={() => (
+            <MaterialIcons
+              name="category"
+              color={Colors.accentColor}
+              size={26}
+            />
+          )}
+          onPress={() => {
+            handleDrawerItemPress("MealCategoriesDrawer");
+            handleDrawerItemPress("CategoriesTab");
+          }}
+        />
+        <DrawerItem
+          label="Filter"
+          labelStyle={{
+            fontFamily: "open-sans-bold",
+            color: Colors.accentColor,
+            fontSize: 16,
+          }}
+          icon={() => (
+            <MaterialIcons
+              name="filter-list-alt"
+              color={Colors.accentColor}
+              size={26}
+            />
+          )}
+          onPress={() => handleDrawerItemPress("FilterDrawer")}
+        />
+      </DrawerContentScrollView>
+    );
+  };
+
   return (
     <Drawer.Navigator
       // initialRouteName="MealCategoriesDrawer"
       screenOptions={drawerScreenOptions}
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
       <Drawer.Screen
         name="MealCategoriesDrawer"
