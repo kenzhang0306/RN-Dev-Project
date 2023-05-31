@@ -12,19 +12,6 @@ export default function CategoriesScreen(props) {
   const theme = useSelector(getMode);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    const unsubscribe = navigation.addListener("drawerItemPress", (e) => {
-      // Prevent default behavior
-      //e.preventDefault();
-      console.log("pressed");
-
-      // Do something manually
-      // ...
-    });
-
-    return unsubscribe;
-  }, [navigation]);
-
   // useLayoutEffect(() => {
   //   navigation.setOptions({
   //     headerTitle: "Meal Categories",

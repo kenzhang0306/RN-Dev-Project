@@ -6,6 +6,7 @@ import {
   ImageBackground,
 } from "react-native";
 import React from "react";
+import MyText from "./MyText";
 
 export default function MealItem(props) {
   const { title, duration, complexity, affordbaility, imageUrl } = props.data;
@@ -28,9 +29,9 @@ export default function MealItem(props) {
             </ImageBackground>
           </View>
           <View style={{ ...styles.mealRow, ...styles.mealDetail }}>
-            <Text>{duration}</Text>
-            <Text>{complexity.toUpperCase()}</Text>
-            <Text>{affordbaility.toUpperCase()}</Text>
+            <MyText>{duration} min</MyText>
+            <MyText>{complexity.toUpperCase()}</MyText>
+            <MyText>{affordbaility.toUpperCase()}</MyText>
           </View>
         </View>
       </TouchableNativeFeedback>

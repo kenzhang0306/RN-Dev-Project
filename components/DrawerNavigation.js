@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { MaterialIcons } from "@expo/vector-icons";
 import CategoriesScreen from "../screens/CategoriesScreen";
@@ -33,6 +33,9 @@ export default function DrawerNavigation() {
       backgroundColor: Colors.primaryColor,
     },
     headerTintColor: "white",
+    headerTitleStyle: {
+      fontFamily: "open-sans-bold",
+    },
   };
 
   const CategoriesStackNavigator = ({ navigation }) => {
@@ -73,6 +76,7 @@ export default function DrawerNavigation() {
         <Stack.Screen
           name="Favorites"
           options={{
+            headerRight: () => <DarkModeSwitch />,
             headerLeft: () => {
               return (
                 <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
@@ -93,10 +97,29 @@ export default function DrawerNavigation() {
     );
   };
 
-  const SettingsStackNavigator = () => {
+  const SettingsStackNavigator = ({ navigation }) => {
     return (
       <Stack.Navigator screenOptions={stackScreenOptions}>
-        <Stack.Screen name="Settings" component={SettingsScreen} />
+        <Stack.Screen
+          name="Settings"
+          options={{
+            headerRight: () => <DarkModeSwitch />,
+            headerLeft: () => {
+              return (
+                <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+                  <Item
+                    title="drawerMenu"
+                    iconName="ios-menu"
+                    onPress={() => {
+                      navigation.toggleDrawer();
+                    }}
+                  />
+                </HeaderButtons>
+              );
+            },
+          }}
+          component={SettingsScreen}
+        />
       </Stack.Navigator>
     );
   };
@@ -107,6 +130,7 @@ export default function DrawerNavigation() {
         <Stack.Screen
           name="Filter"
           options={{
+            headerRight: () => <DarkModeSwitch />,
             headerLeft: () => {
               return (
                 <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
@@ -134,14 +158,20 @@ export default function DrawerNavigation() {
         activeColor="orange"
         inactiveColor="grey"
         labelStyle={{ fontSize: 12 }}
-        barStyle={{ backgroundColor: Colors.primaryColor }}
+        barStyle={{
+          backgroundColor: Colors.primaryColor,
+        }}
         shifting={true}
       >
         <Tab.Screen
           name="CategoriesTab"
           component={CategoriesStackNavigator}
           options={{
-            tabBarLabel: "Meal Category",
+            tabBarLabel: (
+              <Text style={{ fontFamily: "open-sans-bold" }}>
+                Meal Categories
+              </Text>
+            ),
             tabBarIcon: ({ color }) => (
               <MaterialIcons name="category" color={color} size={26} />
             ),
@@ -226,6 +256,7 @@ export default function DrawerNavigation() {
     );
   };
 
+  //nested navigation drawer wrap -> bottom tap wrap -> stack
   return (
     <Drawer.Navigator
       // initialRouteName="MealCategoriesDrawer"
