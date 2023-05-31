@@ -1,17 +1,66 @@
 import { View, Text, StyleSheet, Switch } from "react-native";
-import React, { useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../constants/Colors";
 import { useSelector } from "react-redux";
 import { getMode } from "../store/slices/ThemeSlice";
+import Save from "../components/Save";
+import DarkModeSwitch from "../components/DarkModeSwitch";
 
-export default function FiltersScreen() {
+export default function FiltersScreen(props) {
+  const { navigation } = props;
+  const theme = useSelector(getMode);
+
   const [isGlutenFree, setIsGlutenFree] = useState(false);
   const [isLactoesFree, setIsLactoesFree] = useState(false);
   const [isVegan, setIsVegan] = useState(false);
   const [isVegetarian, setIsVegetarian] = useState(false);
 
-  const theme = useSelector(getMode);
+  //const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <View style={{ marginHorizontal: 20 }}>
+              {
+                <Save
+                  onSaveCallback={() => {
+                    saveFilters();
+                  }}
+                />
+              }
+            </View>
+            <View>
+              <DarkModeSwitch />
+            </View>
+          </View>
+        );
+      },
+    });
+  }, [navigation, isGlutenFree, isLactoesFree, isVegan, isVegetarian]);
+
+  //warp a function so that this function is cached by react and only recreated if its dependencies changed.
+  const saveFilters = useCallback(() => {
+    const appliedFilters = {
+      glutenFree: isGlutenFree,
+      lactoseFree: isLactoesFree,
+      vegan: isVegan,
+      vegetarian: isVegetarian,
+    };
+    console.log(appliedFilters);
+  }, [isGlutenFree, isLactoesFree, isVegan, isVegetarian]);
 
   const handleValueChange = (value, type) => {
     switch (type) {

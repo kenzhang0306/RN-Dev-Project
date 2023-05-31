@@ -20,6 +20,7 @@ import FiltersScreen from "../screens/FiltersScreen";
 import CustomHeaderButton from "./HeaderButton";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import Save from "./Save";
 
 export default function DrawerNavigation() {
   const Tab = createMaterialBottomTabNavigator();
@@ -130,7 +131,21 @@ export default function DrawerNavigation() {
         <Stack.Screen
           name="Filter"
           options={{
-            headerRight: () => <DarkModeSwitch />,
+            // headerRight: () => {
+            //   return (
+            //     <View
+            //       style={{
+            //         flexDirection: "row",
+            //         justifyContent: "space-between",
+            //       }}
+            //     >
+            //       <View style={{ marginHorizontal: 20 }}>{<Save />}</View>
+            //       <View>
+            //         <DarkModeSwitch />
+            //       </View>
+            //     </View>
+            //   );
+            // },
             headerLeft: () => {
               return (
                 <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
