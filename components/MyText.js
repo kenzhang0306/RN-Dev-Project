@@ -2,7 +2,9 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 
 export default function MyText(props) {
-  return <Text style={styles.text}>{props.children}</Text>;
+  return (
+    <Text style={{ ...styles.text, ...props.style }}>{props.children}</Text>
+  );
 }
 
 const styles = StyleSheet.create({

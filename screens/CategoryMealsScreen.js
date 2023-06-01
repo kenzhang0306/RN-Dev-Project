@@ -1,10 +1,11 @@
 import { View, Text, Button, StyleSheet } from "react-native";
 import React, { useLayoutEffect, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
-import { CATEGORIES, MEALS } from "../data/dummy-data";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
 import MealItem from "../components/MealItem";
+import { useSelector } from "react-redux";
+import { getfilteredMeals } from "../store/slices/MealsSlice";
 
 export default function CategoryMealsScreen(props) {
   const route = useRoute();
@@ -16,7 +17,9 @@ export default function CategoryMealsScreen(props) {
   //   (category) => category.id === itemId
   // );
 
-  const displayedMeals = MEALS.filter(
+  const filteredMeals = useSelector(getfilteredMeals);
+
+  const displayedMeals = filteredMeals.filter(
     (meal) => meal.categoryIds.indexOf(itemId) >= 0
   );
 

@@ -41,7 +41,10 @@ export default function DrawerNavigation() {
 
   const CategoriesStackNavigator = ({ navigation }) => {
     return (
-      <Stack.Navigator screenOptions={stackScreenOptions}>
+      <Stack.Navigator
+        initialRouteName="Meal Categories"
+        screenOptions={stackScreenOptions}
+      >
         <Stack.Screen
           name="Meal Categories"
           component={CategoriesScreen}

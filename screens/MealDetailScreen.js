@@ -7,12 +7,17 @@ import {
   Image,
   TouchableNativeFeedback,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useEffect, useCallback } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import CustomHeaderButton from "../components/HeaderButton";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import MyText from "../components/MyText";
-import { MEALS } from "../data/dummy-data";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getFavoriteMeals,
+  getMeals,
+  setFavoriteMeals,
+} from "../store/slices/MealsSlice";
 
 export default function MealDetailScreen(props) {
   const route = useRoute();
@@ -21,7 +26,10 @@ export default function MealDetailScreen(props) {
   const ingredients = route.params?.ItemDetails.ingredients;
   const navigation = useNavigation();
 
-  const selectedMeal = MEALS.find((meal) => mealId === meal.id);
+  const mealsData = useSelector(getMeals);
+  const dispatch = useDispatch();
+
+  const selectedMeal = mealsData.find((meal) => mealId === meal.id);
 
   const renderHeaderRight = () => {
     return (
@@ -32,6 +40,9 @@ export default function MealDetailScreen(props) {
           iconName="ios-star"
           onPress={() => {
             // Handle button press here
+            console.log("toggle to favorite");
+            console.log(mealId);
+            dispatch(setFavoriteMeals(selectedMeal));
           }}
         />
       </HeaderButtons>
@@ -43,7 +54,7 @@ export default function MealDetailScreen(props) {
       headerTitle: title,
       headerRight: renderHeaderRight,
     });
-  }, [navigation]);
+  }, [navigation, mealId]);
 
   const ListItem = (props) => {
     return (
