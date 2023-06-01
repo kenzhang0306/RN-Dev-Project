@@ -9,7 +9,7 @@ export default function CustomHeaderButton(props) {
       <HeaderButton
         {...props}
         iconSize={23} // Optional, specify the icon size
-        color="white" // Optional, specify the icon color
+        color={props.color} // Optional, specify the icon color
         IconComponent={Ionicons} // Optional, specify a custom icon component
         iconProps={{ style: { marginBottom: 2 } }} // Optional, specify custom icon props
       />

@@ -56,6 +56,7 @@ export default function DrawerNavigation() {
                   <Item
                     title="drawerMenu"
                     iconName="ios-menu"
+                    color="white"
                     onPress={() => {
                       navigation.toggleDrawer();
                     }}
@@ -87,6 +88,7 @@ export default function DrawerNavigation() {
                   <Item
                     title="drawerMenu"
                     iconName="ios-menu"
+                    color="white"
                     onPress={() => {
                       navigation.toggleDrawer();
                     }}
@@ -114,6 +116,7 @@ export default function DrawerNavigation() {
                   <Item
                     title="drawerMenu"
                     iconName="ios-menu"
+                    color="white"
                     onPress={() => {
                       navigation.toggleDrawer();
                     }}
@@ -155,6 +158,7 @@ export default function DrawerNavigation() {
                   <Item
                     title="drawerMenu"
                     iconName="ios-menu"
+                    color="white"
                     onPress={() => {
                       navigation.toggleDrawer();
                     }}

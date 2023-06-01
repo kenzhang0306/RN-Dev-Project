@@ -18,6 +18,7 @@ import {
   getMeals,
   setFavoriteMeals,
 } from "../store/slices/MealsSlice";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function MealDetailScreen(props) {
   const route = useRoute();
@@ -27,9 +28,14 @@ export default function MealDetailScreen(props) {
   const navigation = useNavigation();
 
   const mealsData = useSelector(getMeals);
+  const favoriteMeal = useSelector(getFavoriteMeals);
+
   const dispatch = useDispatch();
 
   const selectedMeal = mealsData.find((meal) => mealId === meal.id);
+  const isFavMeal = favoriteMeal.findIndex((meal) => mealId === meal.id);
+  console.log(isFavMeal >= 0 ? "fav" : " not fav");
+  //isFavMeal ? console.log("fav " + true) : console.log("fav " + false);
 
   const renderHeaderRight = () => {
     return (
@@ -37,7 +43,8 @@ export default function MealDetailScreen(props) {
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item
           title="favorite"
-          iconName="ios-star"
+          iconName={isFavMeal >= 0 ? "ios-star" : "ios-star-outline"}
+          color={isFavMeal >= 0 ? "gold" : "white"}
           onPress={() => {
             // Handle button press here
             console.log("toggle to favorite");
@@ -54,7 +61,7 @@ export default function MealDetailScreen(props) {
       headerTitle: title,
       headerRight: renderHeaderRight,
     });
-  }, [navigation, mealId]);
+  }, [navigation, mealId, isFavMeal]);
 
   const ListItem = (props) => {
     return (
