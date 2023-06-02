@@ -12,7 +12,27 @@ const mealsSlice = createSlice({
   initialState,
   reducers: {
     setMeals: (state, action) => {},
-    setFilteredMeals: (state, action) => {},
+    setFilteredMeals: (state, action) => {
+      const { glutenFree, lactoseFree, vegan, vegetarian } = action.payload;
+      const updatedFilteredMeals = state.mealsData.filter((meal) => {
+        if (glutenFree && !meal.isGlutenFree) {
+          return false;
+        }
+        if (lactoseFree && !meal.isLactoseFree) {
+          return false;
+        }
+        if (vegan && !meal.isVegan) {
+          return false;
+        }
+        if (vegetarian && !meal.isVegetarian) {
+          return false;
+        }
+        // If we pass all the checks, then we have a meal...
+        return true;
+      });
+      state.filteredMeals = updatedFilteredMeals;
+      console.log(updatedFilteredMeals);
+    },
     setFavoriteMeals: (state, action) => {
       const { id } = action.payload;
       const existingIndex = state.favoriteMeals.findIndex(

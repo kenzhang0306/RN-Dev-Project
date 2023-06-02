@@ -1,4 +1,9 @@
-import { View, Text } from "react-native";
+import {
+  View,
+  Text,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -7,10 +12,10 @@ export default function Save(props) {
     props.onSaveCallback();
   };
   return (
-    <View>
-      <Text onPress={handleSave}>
+    <View style={{ marginTop: 2 }}>
+      <TouchableOpacity onPress={handleSave}>
         <Ionicons name="ios-save-outline" size={30} color="white" />
-      </Text>
+      </TouchableOpacity>
     </View>
   );
 }

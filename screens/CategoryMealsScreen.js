@@ -6,6 +6,7 @@ import { FlatList } from "react-native-gesture-handler";
 import MealItem from "../components/MealItem";
 import { useSelector } from "react-redux";
 import { getfilteredMeals } from "../store/slices/MealsSlice";
+import MyText from "../components/MyText";
 
 export default function CategoryMealsScreen(props) {
   const route = useRoute();
@@ -22,6 +23,14 @@ export default function CategoryMealsScreen(props) {
   const displayedMeals = filteredMeals.filter(
     (meal) => meal.categoryIds.indexOf(itemId) >= 0
   );
+
+  if (displayedMeals.length === 0) {
+    return (
+      <View style={styles.screen}>
+        <MyText>The meals in this category were filtered out!</MyText>
+      </View>
+    );
+  }
 
   useLayoutEffect(() => {
     navigation.setOptions({

@@ -33,9 +33,8 @@ export default function MealDetailScreen(props) {
   const dispatch = useDispatch();
 
   const selectedMeal = mealsData.find((meal) => mealId === meal.id);
-  const isFavMeal = favoriteMeal.findIndex((meal) => mealId === meal.id);
-  console.log(isFavMeal >= 0 ? "fav" : " not fav");
-  //isFavMeal ? console.log("fav " + true) : console.log("fav " + false);
+  //const isFavMeal = favoriteMeal.findIndex((meal) => mealId === meal.id);
+  const isFavMeal = favoriteMeal.some((meal) => meal.id == mealId);
 
   const renderHeaderRight = () => {
     return (
@@ -43,8 +42,8 @@ export default function MealDetailScreen(props) {
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item
           title="favorite"
-          iconName={isFavMeal >= 0 ? "ios-star" : "ios-star-outline"}
-          color={isFavMeal >= 0 ? "gold" : "white"}
+          iconName={isFavMeal ? "ios-star" : "ios-star-outline"}
+          color={isFavMeal ? "gold" : "white"}
           onPress={() => {
             // Handle button press here
             console.log("toggle to favorite");

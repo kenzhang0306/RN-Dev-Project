@@ -1,20 +1,24 @@
-import { View, Text, StyleSheet, Switch } from "react-native";
+import { View, Text, StyleSheet, Switch, Animated } from "react-native";
 import React, {
   useCallback,
   useEffect,
   useLayoutEffect,
+  useRef,
   useState,
 } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Colors from "../constants/Colors";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getMode } from "../store/slices/ThemeSlice";
 import Save from "../components/Save";
 import DarkModeSwitch from "../components/DarkModeSwitch";
+import { setFilteredMeals } from "../store/slices/MealsSlice";
 
 export default function FiltersScreen(props) {
   const { navigation } = props;
   const theme = useSelector(getMode);
+  const dispatch = useDispatch();
+  const animation = useRef(new Animated.Value(0)).current;
 
   const [isGlutenFree, setIsGlutenFree] = useState(false);
   const [isLactoesFree, setIsLactoesFree] = useState(false);
@@ -51,6 +55,20 @@ export default function FiltersScreen(props) {
     });
   }, [navigation, isGlutenFree, isLactoesFree, isVegan, isVegetarian]);
 
+  const getSavedMessage = () => {
+    Animated.timing(animation, {
+      toValue: 1,
+      duration: 3000, // Adjust the duration as per your needs
+      useNativeDriver: true,
+    }).start(() => {
+      Animated.timing(animation, {
+        toValue: 0,
+        duration: 5000, // Adjust the duration as per your needs
+        useNativeDriver: true,
+      }).start();
+    });
+  };
+
   //warp a function so that this function is cached by react and only recreated if its dependencies changed.
   const saveFilters = useCallback(() => {
     const appliedFilters = {
@@ -59,7 +77,9 @@ export default function FiltersScreen(props) {
       vegan: isVegan,
       vegetarian: isVegetarian,
     };
-    console.log(appliedFilters);
+    //console.log(appliedFilters);
+    dispatch(setFilteredMeals(appliedFilters));
+    getSavedMessage();
   }, [isGlutenFree, isLactoesFree, isVegan, isVegetarian]);
 
   const handleValueChange = (value, type) => {
@@ -102,6 +122,18 @@ export default function FiltersScreen(props) {
         />
       </View>
     );
+  };
+
+  const animatedStyle = {
+    opacity: animation,
+    transform: [
+      {
+        translateY: animation.interpolate({
+          inputRange: [0, 0],
+          outputRange: [300, 200],
+        }),
+      },
+    ],
   };
 
   return (
@@ -149,6 +181,11 @@ export default function FiltersScreen(props) {
           handleValueChange(newValue, "vegetarian");
         }}
       />
+      <Animated.View style={[styles.fadingContainer, animatedStyle]}>
+        <Text style={styles.fadingText}>
+          Your filtered meal is ready now!!!
+        </Text>
+      </Animated.View>
     </View>
   );
 }
@@ -169,5 +206,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "40%",
     marginVertical: 20,
+  },
+  fadingContainer: {
+    padding: 20,
+    backgroundColor: "green",
+    borderRadius: 10,
+  },
+  fadingText: {
+    fontSize: 20,
+    fontFamily: "open-sans-bold",
   },
 });
