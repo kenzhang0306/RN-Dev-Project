@@ -20,6 +20,7 @@ export default function CategoryMealsScreen(props) {
 
   const filteredMeals = useSelector(getfilteredMeals);
 
+  //expects a value as first parameter. This makes it a good choice to find the index in arrays of primitive types (like string, number, or boolean).
   const displayedMeals = filteredMeals.filter(
     (meal) => meal.categoryIds.indexOf(itemId) >= 0
   );

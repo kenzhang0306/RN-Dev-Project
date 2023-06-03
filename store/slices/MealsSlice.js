@@ -35,6 +35,7 @@ const mealsSlice = createSlice({
     },
     setFavoriteMeals: (state, action) => {
       const { id } = action.payload;
+      //expects a callback as first parameter. Use this if you need the index in arrays with non-primitive types (e.g. objects) or your find condition is more complex than just a value.
       const existingIndex = state.favoriteMeals.findIndex(
         (meal) => meal.id === id
       );
